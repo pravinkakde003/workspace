@@ -1,0 +1,46 @@
+package android_kaizen.com.multipanefragments;
+
+import java.util.List;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
+
+
+public class my_adapter extends ArrayAdapter<String> {
+	
+
+
+	private Context mContext;
+	
+	private int layouID;
+	
+	private List<String> service_grid_list;
+	
+	private LayoutInflater inflater; 
+
+	
+	
+	public my_adapter(Context context, int resource, List<String> objects) {
+		super(context, resource, objects);
+
+		
+		this.mContext = context;
+		
+		this.layouID = resource;
+		
+		this.service_grid_list = objects;
+		
+		inflater = (LayoutInflater) mContext
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,39 @@
+package com.example.customspinner;
+
+
+
+import org.json.JSONArray;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+
+public class MainActivity extends Activity implements ActivityCallbackInterface{
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		new CommonAsyncTask(MainActivity.this,
+				(ActivityCallbackInterface) this).execute("0",
+				"http://api.androidhive.info/json/movies.json");
+	}
+
+	@Override
+	public void getResultBack(String result) {
+		if (result!=null) {
+			try {
+				Log.e("",result);
+				JSONArray jsonArray = new JSONArray(result);
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+
+	
+}

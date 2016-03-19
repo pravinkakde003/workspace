@@ -1,0 +1,34 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="android.content.Context"><rhs name\="com.exceptionaire.denso.Activities.ActivityCategory"/><rhs name\="com.example.spinner.MainActivity"/><rhs name\="com.example.findgo.MainActivity"/></lhs><lhs name\="java.lang.CharSequence"><rhs name\="java.lang.String"/></lhs><lhs name\="android.widget.ArrayAdapter"><rhs name\="com.example.spinner.CategoryAdapter"/></lhs><lhs name\="android.widget.Filterable"><rhs name\="com.example.spinner.CategoryAdapter"/></lhs><lhs name\="android.widget.ThemedSpinnerAdapter"><rhs name\="com.example.spinner.CategoryAdapter"/></lhs><lhs name\="android.widget.SpinnerAdapter"><rhs name\="com.example.spinner.CategoryAdapter"/></lhs><lhs name\="android.widget.Adapter"><rhs name\="com.example.spinner.CategoryAdapter"/></lhs><lhs name\="android.widget.BaseAdapter"><rhs name\="com.example.spinner.CategoryAdapter"/></lhs><lhs name\="android.widget.ListAdapter"><rhs name\="com.example.spinner.CategoryAdapter"/></lhs><lhs name\="com.example.spinner.CategoryAdapter"><rhs name\="com.example.spinner.CategoryAdapter"/></lhs><lhs name\="android.widget.TextView"><rhs name\="android.widget.AutoCompleteTextView"/><rhs name\="android.widget.EditText"/><rhs name\="android.widget.Button"/></lhs><lhs name\="android.view.ViewTreeObserver$OnPreDrawListener"><rhs name\="android.widget.AutoCompleteTextView"/><rhs name\="android.widget.EditText"/><rhs name\="android.widget.Button"/></lhs><lhs name\="android.view.View"><rhs name\="android.widget.AutoCompleteTextView"/><rhs name\="android.widget.ImageButton"/><rhs name\="android.widget.ImageView"/><rhs name\="android.widget.EditText"/><rhs name\="android.widget.Button"/><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.graphics.drawable.Drawable$Callback"><rhs name\="android.widget.AutoCompleteTextView"/><rhs name\="android.widget.ImageButton"/><rhs name\="android.widget.ImageView"/><rhs name\="android.widget.EditText"/><rhs name\="android.widget.Button"/><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.view.KeyEvent$Callback"><rhs name\="android.widget.AutoCompleteTextView"/><rhs name\="android.widget.ImageButton"/><rhs name\="android.widget.ImageView"/><rhs name\="android.widget.EditText"/><rhs name\="android.widget.Button"/><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.view.accessibility.AccessibilityEventSource"><rhs name\="android.widget.AutoCompleteTextView"/><rhs name\="android.widget.ImageButton"/><rhs name\="android.widget.ImageView"/><rhs name\="android.widget.EditText"/><rhs name\="android.widget.Button"/><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.widget.Button"><rhs name\="android.widget.Button"/></lhs><lhs name\="android.widget.Filter$FilterListener"><rhs name\="android.widget.AutoCompleteTextView"/><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.widget.EditText"><rhs name\="android.widget.AutoCompleteTextView"/><rhs name\="android.widget.EditText"/></lhs><lhs name\="android.widget.AutoCompleteTextView"><rhs name\="android.widget.AutoCompleteTextView"/></lhs><lhs name\="android.os.Parcelable"><rhs name\="android.content.Intent"/></lhs><lhs name\="java.lang.Cloneable"><rhs name\="android.content.Intent"/></lhs><lhs name\="android.content.Intent"><rhs name\="android.content.Intent"/></lhs><lhs name\="android.widget.ImageView"><rhs name\="android.widget.ImageButton"/><rhs name\="android.widget.ImageView"/></lhs><lhs name\="android.widget.ImageButton"><rhs name\="android.widget.ImageButton"/></lhs><lhs name\="android.widget.AbsListView"><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.text.TextWatcher"><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.view.ViewTreeObserver$OnGlobalLayoutListener"><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.view.ViewTreeObserver$OnTouchModeChangeListener"><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.text.NoCopySpan"><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.widget.AdapterView"><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.view.ViewGroup"><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.view.ViewParent"><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.view.ViewManager"><rhs name\="android.widget.ListView"/></lhs><lhs name\="android.widget.ListView"><rhs name\="android.widget.ListView"/></lhs></history>
+content_assist_number_of_computers=13
+content_assist_proposals_background=255,255,255
+content_assist_proposals_foreground=60,60,60
+do_not_ask_to_install_user_dictionary=true
+eclipse.preferences.version=1
+fontPropagated=true
+org.eclipse.jdt.internal.ui.navigator.layout=2
+org.eclipse.jdt.ui.editor.tab.width=
+org.eclipse.jdt.ui.exception.name=e
+org.eclipse.jdt.ui.formatterprofiles.version=12
+org.eclipse.jdt.ui.gettersetter.use.is=true
+org.eclipse.jdt.ui.javadoclocations.migrated=true
+org.eclipse.jdt.ui.overrideannotation=true
+org.eclipse.jdt.ui.text.code_templates_migrated=true
+org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="false" context\="typecomment_context" deleted\="false" description\="Comment for created types" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.typecomment" name\="typecomment">/**\n * @author Exceptionaire Technologies-Pr@WinK\n *\n * ${tags}\n */</template></templates>
+org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+org.eclipse.jdt.ui.text.templates_migrated=true
+org.eclipse.jface.textfont=1|Monospace|10.0|0|GTK|1|;
+proposalOrderMigrated=true
+spelling_ignore_ampersand_in_properties=true
+spelling_ignore_digits=true
+spelling_ignore_java_strings=true
+spelling_ignore_mixed=true
+spelling_ignore_non_letters=true
+spelling_ignore_sentence=true
+spelling_ignore_single_letters=true
+spelling_ignore_upper=true
+spelling_ignore_urls=true
+spelling_locale_initialized=true
+spelling_user_dictionary_encoding=
+tabWidthPropagated=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

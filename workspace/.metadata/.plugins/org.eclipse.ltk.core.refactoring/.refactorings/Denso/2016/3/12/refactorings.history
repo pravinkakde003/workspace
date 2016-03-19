@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;listresource&apos; in &apos;com.exceptionaire.denso.Fragments.DescriptionFragment&apos; to &apos;listViewResource&apos;&#x0A;- Original project: &apos;Denso&apos;&#x0A;- Original element: &apos;com.exceptionaire.denso.Fragments.DescriptionFragment.listresource&apos;&#x0A;- Renamed element: &apos;com.exceptionaire.denso.Fragments.DescriptionFragment.listViewResource&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;listresource&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;com.exceptionaire.denso.Fragments{DescriptionFragment.java[DescriptionFragment^listresource" name="listViewResource" references="true" setter="false" stamp="1458031891129" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhihu="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/app_background"
+    android:scaleType="fitCenter" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@id/pager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        
+         />
+
+    <LinearLayout
+        android:id="@id/bottons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+    >
+
+        <Button
+            android:id="@+id/btn_cancel"
+           style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginLeft="3.0dip"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:text="Cancel"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_sign_up"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginLeft="3.0dip"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:text="Skip"
+   
+            
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <com.pravin.lib_viewpager_new.CirclePageIndicator
+        android:id="@id/indicator"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottons"
+
+        zhihu:fillColor="#ffffffff"
+        zhihu:pageColor="#88ffffff"
+        zhihu:strokeColor="#00000000"
+        zhihu:strokeWidth="0.0dip" />
+
+</RelativeLayout>

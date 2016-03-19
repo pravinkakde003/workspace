@@ -1,0 +1,8 @@
+package android_kaizen.com.multipanefragments;
+
+public class ItemPOJO {
+	String title;
+	
+	
+
+}

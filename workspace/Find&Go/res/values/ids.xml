@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="pager" type="id">false</item>
+    <item name="pager_marsk" type="id">false</item>
+    <item name="bottons" type="id">false</item>
+    <item name="indicator" type="id">false</item>
+    <item name="guide_item_1" type="id">false</item>
+    <item name="guide_item_2" type="id">false</item>
+    <item name="guide_item_3" type="id">false</item>
+    <item name="guide_item_4" type="id">false</item>
+    
+        <item name="guide_item_5" type="id">false</item>
+
+</resources>

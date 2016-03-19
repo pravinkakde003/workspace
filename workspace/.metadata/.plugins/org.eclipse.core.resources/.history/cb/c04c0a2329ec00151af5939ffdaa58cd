@@ -1,0 +1,341 @@
+package com.example.findgo;
+
+import java.io.File;
+
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.findgo.Utils.AppUtils;
+import com.example.findgo.Utils.Getcoordinatebyname;
+import com.google.android.gms.maps.model.LatLng;
+/**
+ * 
+ * @author Exceptionaire Technologies-Pr@WinK
+ * 
+ *  Used to following task:
+ *  1- Fetch image from gallery or camera and call Web OCR API(Abbey SDK)
+ */
+public class MainActivity extends Activity implements OnClickListener {
+	/*
+	 *  Constant for image capture from camera
+	 */
+	private final int TAKE_PICTURE = 0;
+	
+	/*
+	 * Constant for select image from gallery
+	 */
+	private final int SELECT_FILE = 1;
+	
+	/*
+	 * Request code for activity
+	 */
+	final int GET_RESULT = 102;
+	
+	/*
+	 * Gallery image path
+	 */
+	private String outputPath;
+	
+	/*
+	 * Log .txt file
+	 */
+	private String resultUrl = "result.txt";
+	/*
+	 * Edit text for showing result from API
+	 */
+	private EditText edttextResult;
+	/*
+	 * Image button for activity transition
+	 */
+	private ImageButton btn_back;
+	/*
+	 * Image view for Show selected/captured image
+	 */
+	private ImageView imgvwSelected;
+	/*
+	 * 
+	 */
+	private Button btnEditTextview;
+	/*
+	 * 
+	 */
+	
+	private Button btndone;
+	
+	
+	
+	private InputMethodManager imm;
+	/*
+	 * 
+	 */
+	private Bitmap myBitmap;
+	/*
+	 * 
+	 */
+	private LatLng cord;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		// String imageUrl = "unknown";
+
+		init_view();
+	}
+
+	private void init_view() {
+		// TODO Auto-generated method stub
+		btn_back = (ImageButton) findViewById(R.id.btn_back);
+		imgvwSelected = (ImageView) findViewById(R.id.imgvwSelected);
+
+		btn_back.setOnClickListener(this);
+		edttextResult = (EditText) findViewById(R.id.edttextResult);
+		edttextResult.setEnabled(false);
+		edttextResult.setOnClickListener(this);
+		btnEditTextview = (Button) findViewById(R.id.btnEditTextview);
+		btnEditTextview.setOnClickListener(this);
+		btndone = (Button) findViewById(R.id.btndone);
+		btndone.setOnClickListener(this);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
+
+	public void captureImageFromSdCard(View view) {
+		if (AppUtils.isConnectingToInternet(this)) {
+			try {
+				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+				intent.setType("image/*");
+				startActivityForResult(intent, SELECT_FILE);
+			} catch (Exception e) {
+				// TODO: handle exception
+				AppUtils.alertDialogShow(MainActivity.this, e.getMessage());
+			}
+
+		} else {
+			AppUtils.internet_alertUser(MainActivity.this,
+					"Check Internet Connection");
+		}
+
+	}
+
+	public static final int MEDIA_TYPE_IMAGE = 1;
+
+	private static Uri getOutputMediaFileUri() {
+		return Uri.fromFile(getOutputMediaFile());
+	}
+
+	/** Create a File for saving an image or video */
+	private static File getOutputMediaFile() {
+		// To be safe, you should check that the SDCard is mounted
+		// using Environment.getExternalStorageState() before doing this.
+
+		File mediaStorageDir = new File(
+				Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				"FindGo");
+		// This location works best if you want the created images to be shared
+		// between applications and persist after your app has been uninstalled.
+
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				return null;
+			}
+		}
+
+		// Create a media file name
+		File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+				+ "image.jpg");
+
+		return mediaFile;
+	}
+
+	public void captureImageFromCamera(View view) {
+		if (AppUtils.isConnectingToInternet(this)) {
+			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+			Uri fileUri = getOutputMediaFileUri(); // create a file to save the
+													// // image
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image
+																// file name
+			startActivityForResult(intent, TAKE_PICTURE);
+		} else {
+			AppUtils.internet_alertUser(MainActivity.this,
+					"Check Internet Connection");
+		}
+
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != Activity.RESULT_OK)
+			return;
+
+		String imageFilePath = null;
+
+		switch (requestCode) {
+		case TAKE_PICTURE:
+			imageFilePath = getOutputMediaFileUri().getPath();
+			myBitmap = BitmapFactory.decodeFile(imageFilePath);
+			imgvwSelected.setImageBitmap(myBitmap);
+			// Remove output file
+			deleteFile(resultUrl);
+
+			Intent results = new Intent(this, ResultsActivity.class);
+			results.putExtra("IMAGE_PATH", imageFilePath);
+			results.putExtra("RESULT_PATH", resultUrl);
+			startActivityForResult(results, GET_RESULT);
+			break;
+		case SELECT_FILE: {
+
+			try {
+				Uri imageUri = data.getData();
+
+				String[] projection = { MediaStore.Images.Media.DATA };
+				Cursor cur = managedQuery(imageUri, projection, null, null,
+						null);
+				cur.moveToFirst();
+				imageFilePath = cur.getString(cur
+						.getColumnIndex(MediaStore.Images.Media.DATA));
+				myBitmap = BitmapFactory.decodeFile(imageFilePath);
+				imgvwSelected.setImageBitmap(myBitmap);
+				// Remove output file
+				deleteFile(resultUrl);
+
+				Intent results2 = new Intent(this, ResultsActivity.class);
+				results2.putExtra("IMAGE_PATH", imageFilePath);
+				results2.putExtra("RESULT_PATH", resultUrl);
+				startActivityForResult(results2, GET_RESULT);
+			} catch (Exception e) {
+				// TODO: handle exception
+				Log.e("In Main::", "MMMMMM");
+
+			}
+
+		}
+			break;
+		case GET_RESULT:
+			if (data.getStringExtra("MESSAGE").equalsIgnoreCase("Error")) {
+				imgvwSelected.setImageResource(R.drawable.default_icon);
+				AppUtils.alertDialogShow(MainActivity.this, "Error Occured");
+
+			} else {
+				String message = data.getStringExtra("MESSAGE");
+				Log.e("In Main::", message);
+				edttextResult.setText(message.trim());
+			}
+			break;
+		}
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.btn_back:
+			finish();
+			overridePendingTransition(R.anim.slide_in_left,
+					R.anim.slide_out_right);
+			break;
+		case R.id.btnEditTextview:
+			if (AppUtils.isEmpty(edttextResult)) {
+				Toast.makeText(MainActivity.this,
+						"Capture/Select Image from Gallery", Toast.LENGTH_SHORT)
+						.show();
+			} else {
+				edttextResult.setEnabled(true);
+				edttextResult.requestFocus();
+				imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.showSoftInput(edttextResult,
+						InputMethodManager.SHOW_IMPLICIT);
+			}
+
+			break;
+
+		case R.id.edttextResult:
+			if (edttextResult.isEnabled()) {
+				edttextResult.requestFocus();
+				imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.showSoftInput(edttextResult,
+						InputMethodManager.SHOW_IMPLICIT);
+			} else {
+				edttextResult.setEnabled(false);
+			}
+			break;
+		case R.id.btndone:
+			if (AppUtils.isConnectingToInternet(this)) {
+				String finalInput = edttextResult.getText().toString();
+				Log.e("finalInput:::", finalInput);
+
+				Boolean flag = true;
+				Getcoordinatebyname gcb = new Getcoordinatebyname();
+				try {
+					cord = gcb.getLocationFromAddress(MainActivity.this,
+							finalInput);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+
+					flag = false;
+				}
+
+				if (flag == true) {
+					if (cord != null) {
+
+						Intent intent = new Intent(MainActivity.this,
+								ShowMap_Activity.class);
+						intent.putExtra("LATITUDE", cord.latitude);
+						intent.putExtra("LONGITUDE", cord.longitude);
+						intent.putExtra("PLACE_NAME", finalInput);
+						startActivity(intent);
+						overridePendingTransition(R.anim.slide_in_right,
+								R.anim.slide_out_left);
+						imgvwSelected.setImageResource(R.drawable.default_icon);
+						edttextResult.setText("");
+						edttextResult.setEnabled(false);
+
+					} else {
+						Toast.makeText(MainActivity.this,
+								"Invalid Address Format.", Toast.LENGTH_SHORT)
+								.show();
+					}
+				}
+			} else {
+				AppUtils.internet_alertUser(MainActivity.this,
+						"Check Internet Connection");
+			}
+
+			break;
+
+		default:
+			break;
+		}
+	}
+
+}

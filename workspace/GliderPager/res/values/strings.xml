@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PraWinK.</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+  <string name="title">Planets!</string>
+  <string name="mercury">Mercury</string>
+  <string name="venus">Venus</string>
+  <string name="earth">Earth</string>
+  <string name="home">(Home)</string>
+  <string name="mars">Mars</string>
+  <string name="jupiter">Jupiter</string>
+  <string name="saturn">Saturn</string>
+  <string name="uranus">Uranus</string>
+  <string name="neptune">Neptune</string>
+   <string name="walkthrough1_heading">Lorem Ipsum is simply dummy text of the printing</string>
+    <string name="walkthrough1_discription">It is a long established fact that a reader will be distracted by the readable content.</string>
+   
+    <string name="walkthrough2_heading">Lorem Ipsum is not simply random text.</string>
+    <string name="walkthrough2_discription">There are many variations of passages of Lorem Ipsum available.</string>
+   
+    <string name="walkthrough3_heading">Lorem Ipsum is simply dummy text of the printing</string>
+    <string name="walkthrough3_discription">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</string>
+   
+      
+      <string name="title_activity_walkthrough">Walkthrough</string>
+  
+</resources>

@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+	<!-- Header -->
+    <dimen name="top_bar_height">62.0dip</dimen>
+    <dimen name="round_corner_bg_item_padding">10.0dip</dimen>
+     <!-- List and grid view padding -->
+    <dimen name="list_preferred_item_padding">10.0dip</dimen>
+    <!-- grid view vertical and horizontal spacing -->
+    <dimen name="grid_item_spacing">2.0dip</dimen>
+     <!-- Grid and list item normal height -->
+    <dimen name="item_normal_height">64.0dip</dimen>
+     <!-- Left padding in the grid text -->
+    <dimen name="grid_item_padding_left">8.0dip</dimen>
+</resources>

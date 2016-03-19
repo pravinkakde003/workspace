@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Find &amp; Go</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">ABBYY Cloud OCR SDK Demo App</string>
+    <string name="fromCamera">Camera</string>
+        <string name="finadaddress">Find Address</string>
+            <string name="manualsearch">Manual Search</string>
+    <string name="fromFile">From File</string>
+    <string name="title_activity_results">Results</string>
+    <string name="hello">hello</string>
+    <string name="first_page_description">Click on camera button to take photo,and wait for address recognition.</string>
+    <string name="second_page_description">If your address is not correct,please try with manual address search.</string>
+</resources>

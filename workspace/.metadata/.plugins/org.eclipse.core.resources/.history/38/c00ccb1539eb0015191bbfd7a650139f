@@ -1,0 +1,254 @@
+package com.exceptionaire.denso.Activities;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.exceptionaire.denso.R;
+import com.exceptionaire.denso.Adapter.CategoryAdapter;
+import com.exceptionaire.denso.Model.Category;
+import com.exceptionaire.denso.Utils.ActivityCallbackInterface;
+import com.exceptionaire.denso.Utils.AppConstant;
+import com.exceptionaire.denso.Utils.AppSharedPreference;
+import com.exceptionaire.denso.Utils.AppUtils;
+import com.exceptionaire.denso.Utils.GetCommonAsyncTask;
+
+public class ActivityCategory extends Activity implements OnClickListener,
+		ActivityCallbackInterface {
+	/**
+	 * List for storing Categories
+	 */
+	private List<Category> service_list;
+
+	/**
+	 * GridView to show Categories
+	 */
+	private GridView service_GridView;
+
+	private CategoryAdapter adapter;
+	private ImageButton btn_back;
+	private TextView top_bar_title;
+	private Button txt_signout;
+	private AppSharedPreference preference;
+	boolean doubleBackToExitPressedOnce = false;
+	public static AlertDialog deleteDialog;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_category);
+		preference = new AppSharedPreference(ActivityCategory.this);
+		Init_View();
+		 Bundle extras = getIntent().getExtras();
+		    if(extras!=null) {
+		    	
+		    	
+		    }
+		
+		service_GridView = (GridView) findViewById(R.id.grid_base);
+		service_list = new ArrayList<Category>();
+		adapter = new CategoryAdapter(ActivityCategory.this,
+				R.layout.grid_items_normal, service_list);
+		if (AppUtils.isConnectingToInternet(this)) {
+
+			try {
+				new GetCommonAsyncTask(ActivityCategory.this,
+						(ActivityCallbackInterface) this).execute("0",
+						AppConstant.BASE_URL + AppConstant.GET_CATEGORY);
+			} catch (Exception e) {
+
+				if (e.getMessage().equals("Error")) {
+					Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+				}
+			}
+		} else {
+			AppUtils.internet_alertUser(ActivityCategory.this,
+					"Check Internet Connection");
+		}
+
+		service_GridView.setAdapter(adapter);
+
+		service_GridView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				if (AppUtils.isConnectingToInternet(ActivityCategory.this)) {
+				Category notes = service_list.get(position);
+				Intent intent = new Intent(ActivityCategory.this,
+						CategoryDetailsActivity.class);
+				intent.putExtra("CAT_NAME", notes.getCategory());
+				intent.putExtra("CAT_ID", notes.getV_cat_id());
+				startActivity(intent);
+				}else {
+					AppUtils.internet_alertUser(ActivityCategory.this,
+							"Check Internet Connection");
+				}
+			}
+		});
+
+	}
+
+	private void Init_View() {
+		btn_back = (ImageButton) findViewById(R.id.btn_back);
+		btn_back.setVisibility(View.GONE);
+		top_bar_title = (TextView) findViewById(R.id.top_bar_title);
+		top_bar_title.setText("Category");
+		txt_signout = (Button) findViewById(R.id.txt_signout);
+		txt_signout.setVisibility(View.VISIBLE);
+		txt_signout.setText("SignOut");
+		txt_signout.setOnClickListener(this);
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		final AlertDialog deleteDialog;
+		switch (v.getId()) {
+		case R.id.txt_signout:
+			LayoutInflater factory = LayoutInflater.from(ActivityCategory.this);
+			final View deleteDialogView = factory.inflate(
+					R.layout.logout_dialog_layout, null);
+
+			deleteDialog = new AlertDialog.Builder(ActivityCategory.this)
+					.create();
+			deleteDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			deleteDialog.getWindow().setBackgroundDrawable(
+					new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+			deleteDialog.setView(deleteDialogView);
+			deleteDialog.setCancelable(false);
+			deleteDialogView.findViewById(R.id.btn_yes).setOnClickListener(
+					new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							preference.setIsLoggedIn("0");
+							preference.setuser_id(null);
+
+							Intent mintent = new Intent(ActivityCategory.this,
+									ActivityLogin.class);
+							startActivity(mintent);
+							finish();
+						}
+					});
+			deleteDialogView.findViewById(R.id.btn_no).setOnClickListener(
+					new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							deleteDialog.dismiss();
+						}
+					});
+
+			deleteDialog.show();
+
+			break;
+
+		default:
+			break;
+		}
+
+	}
+
+	@Override
+	public void getResultBack(String result) {
+		if (result != null) {
+			try {
+				Log.d("RESULT", result);
+				if (result.equalsIgnoreCase("SocketTimeoutException")|| result.equalsIgnoreCase("ConnectTimeoutException")) {
+					Toast.makeText(ActivityCategory.this,
+							"Server did not respond", Toast.LENGTH_SHORT)
+							.show();
+					Intent i = new Intent(getBaseContext(),
+							TimeoutActivity.class);
+					startActivity(i);
+					finish();
+				} else {
+					JSONObject jobject = new JSONObject(result);
+					String status = jobject.getString("Status");
+					if (status.equalsIgnoreCase("Success")) {
+						JSONArray j_array = jobject
+								.getJSONArray("Category_list");
+						for (int i = 0; i < j_array.length(); i++) {
+							JSONObject obj = j_array.getJSONObject(i);
+							String v_cat_id = obj.getString("v_cat_id");
+							String category = obj.getString("category");
+							service_list.add(new Category(v_cat_id, category));
+						}
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								adapter.notifyDataSetChanged();
+							}
+						});
+
+					} else {
+						Toast.makeText(ActivityCategory.this,
+								"Network Congestion", Toast.LENGTH_SHORT)
+								.show();
+					}
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+
+	}
+
+	@Override
+	public void onBackPressed() {
+		LayoutInflater factory = LayoutInflater.from(ActivityCategory.this);
+		final View deleteDialogView = factory.inflate(R.layout.exit_app_dialog,
+				null);
+		deleteDialog = new AlertDialog.Builder(ActivityCategory.this).create();
+		deleteDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		deleteDialog.getWindow().setBackgroundDrawable(
+				new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+		deleteDialog.setView(deleteDialogView);
+		deleteDialog.setCancelable(false);
+		deleteDialogView.findViewById(R.id.btn_yes).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						deleteDialog.dismiss();
+						finish();
+
+					}
+				});
+
+		deleteDialogView.findViewById(R.id.btn_no).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						deleteDialog.dismiss();
+					}
+				});
+
+		deleteDialog.show();
+
+	}
+
+}

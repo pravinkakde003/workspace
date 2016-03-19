@@ -1,0 +1,27 @@
+package com.example.customspinner;
+
+import java.util.List;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
+
+public class SpinnerAdapter extends ArrayAdapter<SpinnerItem>{
+
+	LayoutInflater inflator;
+	Context mconteaxt;
+	int resourceId;
+	List <SpinnerItem> myList;
+	
+	
+	public SpinnerAdapter(Context context, int resource,
+			List<SpinnerItem> objects) {
+		super(context, resource, objects);
+		
+		
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,60 @@
+package com.example.customspinner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+
+public class MainActivity extends Activity implements ActivityCallbackInterface {
+	BetterSpinner cat_spinner;
+	List<String> arrayList = new ArrayList<String>();
+	ActivityCallbackInterface callback;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+		cat_spinner = (BetterSpinner) findViewById(R.id.spinner1);
+		new CommonAsyncTask(MainActivity.this, (ActivityCallbackInterface) this)
+				.execute("0", "http://api.androidhive.info/json/movies.json");
+
+		
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				MainActivity.this, android.R.layout.simple_dropdown_item_1line,
+				arrayList);
+		
+
+	}
+
+	@Override
+	public void getResultBack(String result) {
+		if (result!=null) {
+			try {
+				JSONArray jsonArray = new JSONArray(result);
+				for (int i = 0; i < jsonArray.length(); i++) {
+					JSONObject jsonObject = jsonArray.getJSONObject(i);
+					String title= jsonObject.getString("title");
+					arrayList.add(title);
+					
+				}
+				cat_spinner.setAdapter(adapter);
+				
+				
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+
+	}
+
+}

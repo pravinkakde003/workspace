@@ -1,0 +1,7 @@
+package com.example.customspinner;
+
+import android.widget.ArrayAdapter;
+
+public class SpinnerAdapter extends ArrayAdapter<SpinnerItem>{
+
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <color name="gray_dark">#444440</color>
+  <color name="gray">#ACACAC</color>
+    <color name="more_pressed_gray">#4DD6D6D6</color>
+    <!-- ActionBar color -->
+    <color name="actionbar_color">#02BBD2</color>
+    <color name="login_button_normal">#EC1B30</color>
+    <color name="login_button_pressed">#0195A8</color>
+    <color name="action_bar_dark">#4386F8</color>
+    <color name="pink">#D82B3F</color>
+    <color name="light_gray">#E6E6E6</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transperant">#00000000</color>
+    <color name="facebook_button_normal">#5D7AB4</color>
+    <color name="facebook_button_pressed">#37496C</color>
+    <color name="google_button_normal">#FFC82D21</color>
+    <color name="google_button_pressed">#FF8C1F17</color>
+    <color name="twitter_button_normal">#3864A3</color>
+    <color name="twitter_button_pressed">#FF00476C</color>
+    <color name="app_button_normal">#A6000000</color>
+    <color name="app_button_pressed">#FF8C1F17</color>
+    <!-- Login Button Color -->
+    <color name="red_btn_bg">#FF3648</color>
+    <color name="red_btn_light_bg">#A0FF0000</color>
+    <color name="blue">#30A7FC</color>
+    <color name="text_color">#000</color>
+    <color name="text_hint_color">#E5E5E5</color>
+
+    <!-- Login Button Color -->
+    <color name="blue_btn_bg">#0087DE</color>
+    <color name="blue_btn_light_bg">#005185</color>
+
+    <!-- Bottom Bar color -->
+    <color name="bottom_bar_color">#1D1D1D</color>
+    <color name="splash_text_shadow">#66000000</color>
+    <!-- ActionBar color -->
+
+    <color name="header_textview">#000000</color>
+    <color name="app_color">#527DBB</color>
+    <color name="splash_button_normal">#4485F5</color>
+    <color name="orange">#FF6C00</color>
+    <color name="forecast_gray">#88ffffff</color>
+ <!-- Transparent black -->
+    <color name="transparent_black">#99000000</color>
+     <color name="transparent_white">#ffcccccc</color>
+    <!-- Text Colors -->
+    <color name="divider">#dadada</color>
+    <color name="hints">#b8b8b8</color>
+    <color name="secondary">#727272</color>
+    <color name="text">#212121</color>
+
+    <!-- Material Light_Blue Primary -->
+    <color name="color_light_blue_500">#53B6FF</color>
+    <color name="color_light_blue_100">#b9e1f8</color>
+    <color name="color_light_blue_700">#1687ca</color>
+    
+
+    <!-- Material Orange Accent -->
+    <color name="color_orange_A200">#ff9800</color>
+    <color name="color_orange_A100">#ffd180</color>
+    <color name="color_orange_A400">#ff9100</color>
+    <color name="primary_color">@color/color_light_blue_500</color>
+    <color name="primary_color_light">@color/color_light_blue_100</color>
+    <color name="primary_color_dark">@color/black</color>
+    <color name="accent_color">@color/color_orange_A200</color>
+    <color name="accent_color_light">@color/color_orange_A100</color>
+    <color name="accent_color_dark">@color/color_orange_A400</color>
+
+    
+    
+    
+    
+    
+      <color name="holo_blue_bright">#ff00ddff</color>
+    <color name="menu_bg">#101F2D</color>
+    <color name="tab_bg">#142029</color>
+    <color name="bg_light_blue">#EBF5FF</color>
+    <color name="light_black">#CC000000</color>
+    <color name="light_black_AA">#AA000000</color>
+    <color name="light_black_">#33000000</color>
+    <color name="light_white_">#33FFFFFF</color>
+    <color name="dialog_bg">#f0f0f0</color>
+
+    <drawable name="light_black_">#33000000</drawable>
+    
+    <color name="dim_foreground_disabled_material_light">#80323232</color>
+    
+    
+    
+    
+    
+    
+</resources>

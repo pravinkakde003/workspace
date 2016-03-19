@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ <color name="fill_color">#6600FFFF</color>
+    <color name="stroke_color">#BB00FFFF</color>
+    <color name="app_bg_color">#9E4837</color>
+    <!-- Material Light_Blue Primary -->
+    <color name="color_light_blue_500">#00AFF0</color>
+    <color name="color_light_blue_100">#b9e1f8</color>
+    <color name="color_light_blue_700">#009DD8</color>
+   <color name="base_gray">#363636</color>
+    <!-- Material Orange Accent -->
+    <color name="color_orange_A200">#ff9800</color>
+    <color name="color_orange_A100">#ffd180</color>
+    <color name="color_orange_A400">#F04100</color>
+    <color name="primary_color">@color/color_light_blue_500</color>
+    <color name="primary_color_light">@color/color_light_blue_100</color>
+    <color name="primary_color_dark">@color/color_light_blue_700</color>
+    <color name="accent_color">@color/color_orange_A200</color>
+    <color name="accent_color_light">@color/color_orange_A100</color>
+    <color name="accent_color_dark">@color/color_orange_A400</color>
+    <color name="facebook_button_normal">#5D7AB4</color>
+    <color name="google_button_normal">#EA4335</color>
+    <color name="google_button_pressed">#C82D21</color>
+ 
+    <color name="login_button_pressed">#8B404A</color>
+    <color name="green">#83B74B</color>
+    <color name="splash_text_shadow">#66000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="forecast_gray">#88ffffff</color>
+    <color name="txt_color_black">#000</color>
+    <color name="txt_color_header">#1D4B86</color>
+    <color name="txt_verification">#F2C311</color>
+    <color name="gray">#ACACAC</color>
+     <color name="gray_dark">#444440</color>
+    <color name="action_bar_color">#6F111E</color>
+    <color name="app_background_color">#EEEEEE</color>
+    <color name="transperant">#00000000</color>
+    <color name="dashboard_menu_normal">#4D000000</color>
+    <!-- Transparent black -->
+    <color name="transparent_black">#66000000</color>
+    <color name="transparent_white">#66FFFFFF</color>
+
+    <item name="light_blue" type="color">#34BC99</item>
+    <item name="dark_yellow" type="color">#F09E00</item>
+    <item name="dark_orange" type="color">#CF5600</item>
+    <item name="purple" type="color">#8B41B3</item>
+    <item name="dark_blue" type="color">#2980B9</item>
+    <item name="dark_pink" type="color">#DA5653</item>
+    <item name="dark_rani_color" type="color">#901C3F</item>
+    <item name="dark_green" type="color">#018A00</item>
+    <item name="extra_light_blue" type="color">#01B6B1</item>
+
+    <integer-array name="androidcolors">
+        <item>@color/light_blue</item>
+        <item>@color/dark_yellow</item>
+        <item>@color/dark_orange</item>
+        <item>@color/purple</item>
+        <item>@color/dark_blue</item>
+        <item>@color/dark_pink</item>
+        <item>@color/dark_rani_color</item>
+        <item>@color/dark_green</item>
+        <item>@color/extra_light_blue</item>
+    </integer-array>
+    
+      <color name="disabled_color">#44000000</color>
+    <color name="error_color">#E7492E</color>
+
+</resources>

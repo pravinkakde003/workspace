@@ -1,0 +1,33 @@
+package com.example.customspinner;
+
+
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class MainActivity extends Activity implements ActivityCallbackInterface{
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		new CommonAsyncTask(MainActivity.this,
+				(ActivityCallbackInterface) this).execute("0",
+				"ttp://api.androidhive.info/json/movies.json");
+	}
+
+	@Override
+	public void getResultBack(String result) {
+		if (result!=null) {
+			try {
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+
+	
+}

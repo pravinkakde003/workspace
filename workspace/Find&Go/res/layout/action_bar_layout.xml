@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/top_bar"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/top_bar_height"
+    
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:layout_weight="1"
+
+        android:padding="4dp"
+        android:paddingLeft="@dimen/round_corner_bg_item_padding"
+        android:paddingRight="@dimen/round_corner_bg_item_padding" >
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.0dip"
+            android:background="@drawable/back_button_selector" />
+
+        <Button
+            android:id="@+id/fromFileButton"
+            style="@style/squre_round_filled_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10.0dip"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+             android:onClick="captureImageFromSdCard"
+            android:paddingRight="10dp"
+            android:text="Gallery"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</LinearLayout>

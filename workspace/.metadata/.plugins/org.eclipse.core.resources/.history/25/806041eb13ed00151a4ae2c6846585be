@@ -1,0 +1,170 @@
+package com.example.findgo;
+
+import android.app.ActionBar;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+import com.example.findgo.Utils.My_SharedPreference;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class PlacePickerActivity extends FragmentActivity implements
+		OnMapReadyCallback,OnClickListener {
+	private SupportMapFragment mMapView;
+	private GoogleMap mMap;
+	Button btn_normal, btn_satellite, btn_hybrid;
+	My_SharedPreference preference;
+
+	Button btn_autosearch;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+		preference = new My_SharedPreference(PlacePickerActivity.this);
+		setContentView(R.layout.activity_place);
+		ActionBar actionBar = getActionBar();
+		actionBar.setHomeButtonEnabled(true);
+		btn_normal = (Button) findViewById(R.id.btn_normal);
+		btn_satellite = (Button) findViewById(R.id.btn_satellite);
+		btn_hybrid = (Button) findViewById(R.id.btn_hybrid);
+		btn_normal.setOnClickListener(this);
+		btn_satellite.setOnClickListener(this);
+		btn_hybrid.setOnClickListener(this);
+
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		mMapView = (SupportMapFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.map);
+
+		mMapView.getMapAsync(this);
+		mMapView.onCreate(savedInstanceState);
+
+		PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager()
+				.findFragmentById(R.id.place_autocomplete_fragment);
+
+		autocompleteFragment
+				.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+					@Override
+					public void onPlaceSelected(Place place) {
+						// TODO: Get info about the selected place.
+						Log.i("place",
+								"Place: " + place.getName() + place.getLatLng());
+
+						mMap.addMarker(new MarkerOptions().position(
+								place.getLatLng()).title("" + place.getName()));
+						mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+								place.getLatLng(), 15));
+					}
+
+					@Override
+					public void onError(Status status) {
+						// TODO: Handle the error.
+						Log.i("status", "An error occurred: " + status);
+					}
+				});
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// app icon in action bar clicked; goto parent activity.
+			this.finish();
+			overridePendingTransition(R.anim.slide_in_left,
+					R.anim.slide_out_right);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (mMapView != null)
+			mMapView.onResume();
+
+	}
+
+	@Override
+	protected void onPause() {
+		if (mMapView != null)
+			mMapView.onPause();
+		super.onPause();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+	}
+
+	@Override
+	public void onLowMemory() {
+		super.onLowMemory();
+		if (mMapView != null)
+			mMapView.onLowMemory();
+	}
+
+	@Override
+	public void onMapReady(GoogleMap googleMap) {
+		mMap = googleMap;
+		double lat;
+		double longg;
+		if (preference.getlatitude() != null
+				&& preference.getlongitude() != null) {
+			Log.e("Lat::", "" + preference.getlatitude());
+			Log.e("Long::", "" + preference.getlongitude());
+			lat = Double.valueOf(Double.parseDouble(preference.getlatitude()));
+			longg = Double.valueOf(Double.parseDouble(preference.getlongitude()));
+			mMap.addMarker(new MarkerOptions().position(new LatLng(lat, longg))
+					.title("Current Location"));
+		} else {
+			lat = Double.valueOf(18.5203);
+			longg = Double.valueOf(73.8567);
+			mMap.addMarker(new MarkerOptions().position(new LatLng(lat, longg))
+					.title("Chhatrapati Shivaji International Airport,Mumbai"));
+		}
+
+		mMap.getUiSettings().setZoomControlsEnabled(false);
+
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+				new LatLng(lat, longg), 15));
+
+	}
+	
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.btn_normal:
+			map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+			break;
+		case R.id.btn_satellite:
+			map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+			break;
+		case R.id.btn_hybrid:
+			map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+}

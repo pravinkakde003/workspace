@@ -1,0 +1,45 @@
+package com.example.customspinner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+
+public class MainActivity extends Activity {
+	BetterSpinner cat_spinner;
+//	SpinnerAdapter adapter;
+	List<SpinnerItem> category_list;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+//		category_list=new ArrayList<SpinnerItem>();
+//		category_list.add(new SpinnerItem("SpinnerItem"));
+//		category_list.add(new SpinnerItem("SpinnerItem2"));
+//		category_list.add(new SpinnerItem("SpinnerItem3"));
+//		category_list.add(new SpinnerItem("SpinnerItem4"));
+//		category_list.add(new SpinnerItem("SpinnerItem5"));
+//		category_list.add(new SpinnerItem("SpinnerItem6"));
+//		category_list.add(new SpinnerItem("SpinnerItem7"));
+//		category_list.add(new SpinnerItem("SpinnerItem8"));
+//		category_list.add(new SpinnerItem("SpinnerItem9"));
+//		category_list.add(new SpinnerItem("SpinnerItem10"));
+		String[] list = getResources().getStringArray(R.array.month);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+                android.R.layout.simple_dropdown_item_1line, list);
+		
+		
+		
+		
+//		cat_spinner = (BetterSpinner) findViewById(R.id.spinner1);
+//		adapter = new SpinnerAdapter(MainActivity.this,
+//				R.layout.spinner_item, category_list);
+		cat_spinner.setAdapter(adapter);
+		
+
+	}
+
+}

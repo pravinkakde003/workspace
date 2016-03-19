@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/top_bar"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/top_bar_height"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:layout_weight="1"
+        android:background="@color/action_bar_color"
+        android:padding="4dp"
+        android:paddingLeft="@dimen/round_corner_bg_item_padding"
+        android:paddingRight="@dimen/round_corner_bg_item_padding" >
+
+        <TextView
+            android:id="@+id/top_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:drawablePadding="2.0dp"
+            android:gravity="center_vertical"
+            android:shadowColor="@color/base_gray"
+            android:shadowDx="0.0"
+            android:shadowDy="2.0"
+            android:shadowRadius="1.5"
+            android:textColor="@color/white"
+            android:textSize="18.0sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.0dip"
+            android:background="@drawable/back_button_selector" />
+
+        <TextView
+            android:id="@+id/txt_signout"
+            android:layout_width="wrap_content"
+            android:layout_height="32dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10.0dip"
+            android:gravity="center_vertical"
+            android:text="SignOut"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+<Button
+            android:id="@+id/btn_language"
+            style="@style/squre_round_filled_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10.0dip"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+           
+            android:paddingRight="10dp"
+            android:text="Language"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</LinearLayout>

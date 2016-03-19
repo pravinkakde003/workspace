@@ -1,0 +1,65 @@
+package com.example.customspinner;
+
+import java.util.List;
+
+import com.exceptionaire.denso.R;
+import com.exceptionaire.denso.Adapter.CategoryAdapter.ViewHolder;
+import com.exceptionaire.denso.Model.Category;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+public class SpinnerAdapter extends ArrayAdapter<SpinnerItem> {
+
+	LayoutInflater inflater;
+	Context mContext;
+	int resourceId;
+	List<SpinnerItem> myList;
+
+	public SpinnerAdapter(Context context, int resource,
+			List<SpinnerItem> objects) {
+		super(context, resource, objects);
+		this.mContext = context;
+		this.resourceId = resource;
+		this.myList = objects;
+		inflater = (LayoutInflater) mContext
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+	
+	@Override
+	public SpinnerItem getItem(int position) {
+		return myList.get(position);
+	}
+
+	class ViewHolder {
+		TextView Cat_title;
+	}
+	
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder;
+
+		if (convertView == null) {
+			convertView = inflater.inflate(layouID, null);
+			holder = new ViewHolder();
+			holder.Cat_title = (TextView) convertView
+					.findViewById(R.id.Cat_title);
+			convertView.setTag(holder);
+
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+		
+		Category notes = service_grid_list.get(position);
+		
+		holder.txt_title.setText(notes.getCategory());
+		
+		return convertView;
+	}
+	}
+
+}

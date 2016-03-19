@@ -1,0 +1,71 @@
+package com.example.customspinner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
+
+
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+public class MainActivity extends Activity implements ActivityCallbackInterface {
+	Spinner cat_spinner;
+	SpinnerAdapter madapter;
+	private List<String> service_list;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+		new CommonAsyncTask(MainActivity.this, (ActivityCallbackInterface) this)
+		.execute("0", "http://api.androidhive.info/json/movies.json");
+		cat_spinner = (Spinner) findViewById(R.id.spinner1);
+		service_list = new ArrayList<String>();
+//		madapter = new SpinnerAdapter(MainActivity.this,
+//				R.layout.spinner_item, service_list);
+		
+		SpinnerAdapter adapter = new SpinnerAdapter(
+				MainActivity.this, service_list);
+		cat_spinner.setAdapter(adapter);
+		
+		
+		
+		cat_spinner.setAdapter(madapter);
+
+	}
+
+	@Override
+	public void getResultBack(String result) {
+		if (result != null) {
+			try {
+				JSONArray jsonArray = new JSONArray(result);
+				for (int i = 0; i < jsonArray.length(); i++) {
+					JSONObject jsonObject = jsonArray.getJSONObject(i);
+					String title = jsonObject.getString("title");
+					Log.e("title",title);
+					service_list.add(title);			
+				}
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						madapter.notifyDataSetChanged();
+					}
+				});		
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
+}

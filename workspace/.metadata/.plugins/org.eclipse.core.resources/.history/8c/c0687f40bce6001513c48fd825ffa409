@@ -1,0 +1,236 @@
+package com.example.findgo;
+
+import java.io.File;
+import java.util.List;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import com.google.android.gms.maps.model.LatLng;
+
+public class MainActivity extends Activity implements OnClickListener {
+
+	private final int TAKE_PICTURE = 0;
+	private final int SELECT_FILE = 1;
+	final int GET_RESULT = 102;
+	String outputPath;
+	private String resultUrl = "result.txt";
+	EditText edttextResult;
+	ImageButton btn_back;
+	ImageView imgvwSelected;
+	Button btnEditTextview, btndone;
+	private InputMethodManager imm;
+	private Bitmap myBitmap;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		// String imageUrl = "unknown";
+
+		init_view();
+	}
+
+	private void init_view() {
+		// TODO Auto-generated method stub
+		btn_back = (ImageButton) findViewById(R.id.btn_back);
+		imgvwSelected = (ImageView) findViewById(R.id.imgvwSelected);
+		btn_back.setOnClickListener(this);
+		edttextResult = (EditText) findViewById(R.id.edttextResult);
+		edttextResult.setEnabled(false);
+		edttextResult.setOnClickListener(this);
+		btnEditTextview = (Button) findViewById(R.id.btnEditTextview);
+		btnEditTextview.setOnClickListener(this);
+		btndone = (Button) findViewById(R.id.btndone);
+		btndone.setOnClickListener(this);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
+
+	public void captureImageFromSdCard(View view) {
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+		intent.setType("image/*");
+
+		startActivityForResult(intent, SELECT_FILE);
+	}
+
+	public static final int MEDIA_TYPE_IMAGE = 1;
+
+	private static Uri getOutputMediaFileUri() {
+		return Uri.fromFile(getOutputMediaFile());
+	}
+
+	/** Create a File for saving an image or video */
+	private static File getOutputMediaFile() {
+		// To be safe, you should check that the SDCard is mounted
+		// using Environment.getExternalStorageState() before doing this.
+
+		File mediaStorageDir = new File(
+				Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+				"ABBYY Cloud OCR SDK Demo App");
+		// This location works best if you want the created images to be shared
+		// between applications and persist after your app has been uninstalled.
+
+		// Create the storage directory if it does not exist
+		if (!mediaStorageDir.exists()) {
+			if (!mediaStorageDir.mkdirs()) {
+				return null;
+			}
+		}
+
+		// Create a media file name
+		File mediaFile = new File(mediaStorageDir.getPath() + File.separator
+				+ "image.jpg");
+
+		return mediaFile;
+	}
+
+	public void captureImageFromCamera(View view) {
+		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		Uri fileUri = getOutputMediaFileUri(); // create a file to save the
+												// image
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file
+															// name
+
+		startActivityForResult(intent, TAKE_PICTURE);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode != Activity.RESULT_OK)
+			return;
+
+		String imageFilePath = null;
+
+		switch (requestCode) {
+		case TAKE_PICTURE:
+			imageFilePath = getOutputMediaFileUri().getPath();
+			myBitmap = BitmapFactory.decodeFile(imageFilePath);
+			imgvwSelected.setImageBitmap(myBitmap);
+			// Remove output file
+			deleteFile(resultUrl);
+
+			Intent results = new Intent(this, ResultsActivity.class);
+			results.putExtra("IMAGE_PATH", imageFilePath);
+			results.putExtra("RESULT_PATH", resultUrl);
+			startActivityForResult(results, GET_RESULT);
+			break;
+		case SELECT_FILE: {
+			Uri imageUri = data.getData();
+
+			String[] projection = { MediaStore.Images.Media.DATA };
+			Cursor cur = managedQuery(imageUri, projection, null, null, null);
+			cur.moveToFirst();
+			imageFilePath = cur.getString(cur
+					.getColumnIndex(MediaStore.Images.Media.DATA));
+			myBitmap = BitmapFactory.decodeFile(imageFilePath);
+			imgvwSelected.setImageBitmap(myBitmap);
+			// Remove output file
+			deleteFile(resultUrl);
+
+			Intent results2 = new Intent(this, ResultsActivity.class);
+			results2.putExtra("IMAGE_PATH", imageFilePath);
+			results2.putExtra("RESULT_PATH", resultUrl);
+			startActivityForResult(results2, GET_RESULT);
+		}
+			break;
+		case GET_RESULT:
+			String message = data.getStringExtra("MESSAGE");
+			Log.e("In Main::", message);
+			edttextResult.setText(message);
+			break;
+		}
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.btn_back:
+			finish();
+			overridePendingTransition(R.anim.slide_in_left,
+					R.anim.slide_out_right);
+			break;
+		case R.id.btnEditTextview:
+			edttextResult.setEnabled(true);
+			edttextResult.requestFocus();
+			imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.showSoftInput(edttextResult, InputMethodManager.SHOW_IMPLICIT);
+			break;
+
+		case R.id.edttextResult:
+			if (edttextResult.isEnabled()) {
+				edttextResult.requestFocus();
+				imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.showSoftInput(edttextResult,
+						InputMethodManager.SHOW_IMPLICIT);
+			} else {
+				edttextResult.setEnabled(false);
+			}
+			break;
+		case R.id.btndone:
+			String finalInput=edttextResult.getText().toString();
+			LatLng da= getLocationFromAddress(this,finalInput);
+			break;
+			
+
+		default:
+			break;
+		}
+	}
+	
+	
+	public LatLng getLocationFromAddress(Context context,String strAddress) {
+
+	    Geocoder coder = new Geocoder(context);
+	    List<Address> address;
+	    LatLng p1 = null;
+
+	    try {
+	        address = coder.getFromLocationName(strAddress, 5);
+	        if (address == null) {
+	            return null;
+	        }
+	        Address location = address.get(0);
+	        location.getLatitude();
+	        location.getLongitude();
+
+	        p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+	    } catch (Exception ex) {
+
+	        ex.printStackTrace();
+	    }
+
+	    return p1;
+	}
+
+}

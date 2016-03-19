@@ -1,0 +1,66 @@
+package com.exceptionaire.denso.Activities;
+
+import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.exceptionaire.denso.R;
+import com.exceptionaire.denso.Fragments.DescriptionFragment;
+import com.exceptionaire.denso.Fragments.VersionsFragment;
+import com.exceptionaire.denso.Interface.OnVersionNameSelectionChangeListener;
+import com.exceptionaire.denso.Model.Section;
+
+public class SubCategoryActivity extends Activity implements OnClickListener {
+	ImageButton btn_back;
+	TextView top_bar_title, footer_bar_title;
+	RelativeLayout footer_bar;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_subcategory_detail);
+
+		btn_back = (ImageButton) findViewById(R.id.btn_back);
+		btn_back.setOnClickListener(this);
+		top_bar_title = (TextView) findViewById(R.id.top_bar_title);
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			top_bar_title.setText(extras.getString("SUB_CAT_NAME"));
+		} else {
+			top_bar_title.setText(getResources().getString(R.string.app_name));
+		}
+		footer_bar_title = (TextView) findViewById(R.id.footer_bar_title);
+		footer_bar_title.setText("Switch to AMW");
+		footer_bar = (RelativeLayout) findViewById(R.id.footer_bar);
+		footer_bar.setOnClickListener(this);
+
+		
+	}
+
+	
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btn_back:
+			finish();
+			break;
+		case R.id.footer_bar:
+			Intent intent = new Intent(SubCategoryActivity.this,
+					ActivityInformation.class);
+			startActivity(intent);
+			finish();
+			break;
+		default:
+			break;
+		}
+	}
+}

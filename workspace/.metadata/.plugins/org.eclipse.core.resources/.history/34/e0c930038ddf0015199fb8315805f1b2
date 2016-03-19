@@ -1,0 +1,76 @@
+package com.exceptionaire.denso.Fragments;
+
+import java.util.ArrayList;
+
+import android.app.Activity;
+import android.app.ListFragment;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.exceptionaire.denso.R;
+import com.exceptionaire.denso.Adapter.SubCategoryAdapter;
+import com.exceptionaire.denso.Interface.OnVersionNameSelectionChangeListener;
+import com.exceptionaire.denso.Model.Section;
+
+public class VersionsFragment extends ListFragment {
+	SubCategoryAdapter adapter;
+
+	
+	/**
+	 * Interface reference
+	 */
+	OnVersionNameSelectionChangeListener listener;
+
+	public VersionsFragment() {
+
+	}
+
+	public interface FragmentCommunicator {
+		public void onDataPass(String data);
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		try {
+			listener = (OnVersionNameSelectionChangeListener) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString()
+					+ " must implement OnHeadlineSelectedListener");
+		}
+
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+		Bundle bundle = this.getArguments();
+
+		if (bundle != null) {
+			ArrayList<Section> arraylist = bundle
+					.getParcelableArrayList("SubCatList");
+			adapter = new SubCategoryAdapter(getActivity(),
+					R.layout.pan_list_item, arraylist);
+			setListAdapter(adapter);
+			listener.OnSelectionChanged(adapter.getItem(0));
+		}
+
+	}
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		listener.OnSelectionChanged(adapter.getItem(position));
+	}
+
+	public void getNewData(ArrayList<Section> arraylist) {
+		adapter = new SubCategoryAdapter(getActivity(),
+				R.layout.pan_list_item, arraylist);
+		setListAdapter(adapter);
+		listener.OnSelectionChanged(adapter.getItem(0));
+
+	}
+}

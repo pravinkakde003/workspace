@@ -1,0 +1,6 @@
+package com.example.customspinner;
+
+public class SpinnerItem {
+	String category_title;
+
+}

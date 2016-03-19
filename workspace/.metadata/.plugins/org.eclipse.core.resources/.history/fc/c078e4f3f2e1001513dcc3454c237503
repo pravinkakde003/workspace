@@ -1,0 +1,56 @@
+package com.example.customspinner;
+
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.Spinner;
+
+public class MainActivity extends Activity implements ActivityCallbackInterface {
+	// you can use this array to find the school ID based on name
+	ArrayList<String> schools;
+	Spinner mySpinner ;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		mySpinner = (Spinner) findViewById(R.id.spinner1);
+		schools = new ArrayList<String>();
+		new CommonAsyncTask(MainActivity.this, (ActivityCallbackInterface) this)
+				.execute("0", "http://api.androidhive.info/json/movies.json");
+
+		
+
+		CategoryAdapter adapter = new CategoryAdapter(this,
+				R.layout.spinner_item, schools);
+		adapter.setDropDownViewResource(R.layout.spinner_item);
+		mySpinner.setAdapter(new NothingSelectedSpinnerAdapter(adapter,
+				R.layout.spinner_header_textview, this));
+
+	}
+
+	@Override
+	public void getResultBack(String result) {
+		if (result != null) {
+			try {
+				// Log.e("",result);
+				JSONArray jsonArray = new JSONArray(result);
+				for (int i = 0; i < jsonArray.length(); i++) {
+					JSONObject obj = jsonArray.getJSONObject(i);
+					String Title = obj.getString("title");
+					schools.add(Title);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
+}

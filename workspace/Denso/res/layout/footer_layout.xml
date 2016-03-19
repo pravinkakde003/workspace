@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+   
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/top_bar_height"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+         android:id="@+id/footer_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:layout_weight="1"
+        android:background="@color/action_bar_color"
+        android:padding="4dp"
+        android:paddingLeft="@dimen/round_corner_bg_item_padding"
+        android:paddingRight="@dimen/round_corner_bg_item_padding" >
+
+        <TextView
+            android:id="@+id/footer_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:drawablePadding="2.0dp"
+            android:gravity="center_vertical"
+            android:shadowColor="@color/base_gray"
+            android:shadowDx="0.0"
+            android:shadowDy="2.0"
+            android:shadowRadius="1.5"
+            android:textColor="@color/white"
+             android:textSize="18.0sp"
+            android:textStyle="bold" />      
+    </RelativeLayout>
+
+</LinearLayout>

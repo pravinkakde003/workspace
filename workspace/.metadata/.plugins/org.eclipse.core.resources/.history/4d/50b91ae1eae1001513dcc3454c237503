@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="#99D4E59E"
+    android:layout_height="match_parent">
+
+
+
+    <FrameLayout
+        android:id="@+id/imageLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <com.eftimoff.androipathview.PathView
+            android:id="@+id/pathView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:svg="@raw/logo"
+            app:pathColor="@android:color/black"
+            app:pathWidth="1"/>
+        <ImageView
+            android:id="@+id/slut"
+            android:src="@drawable/coffeefund"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Thank You"
+            android:id="@+id/intro"
+            android:visibility="gone"
+            android:textSize="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+</LinearLayout>
